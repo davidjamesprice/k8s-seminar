@@ -1,0 +1,13 @@
+kind: Service      # Create new service
+apiVersion: v1
+metadata:
+  name: music-service
+spec:
+  selector:
+    app: MyApp    # Run on any pod(s) with label - app: myapp
+  ports:          # Map incoming port to target port
+  - name: http    # Setting multiple ports listterns
+    protocol: TCP
+    port: 8080
+    targetPort: 80
+  type: LoadBalancer
