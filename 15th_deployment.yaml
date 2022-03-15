@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+ name:  {{ .Release.Name }}
+ namespace: spring
+spec:
+ selector:
+   matchLabels:
+     app: spring-music
+ replicas: 1
+ template:
+   metadata:
+     labels:
+       app: spring-music
+       version: "1.0"
+   spec:
+     containers:
+     - name: music
+       image: {{ .Values.repo }}/{{ .Values.image }}:{{ .Values.tag }}
+       ports:
+       - containerPort:  {{ .Values.port }}
+       volumeMounts:
+       - name: config-volume
+         mountPath: /etc/config
+        # Define the environment variable
+       env:
+        - name: mydbname
+          valueFrom:
+            configMapKeyRef:
+              # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
+              name: {{ .Release.name }}-configmap
+              # Specify the key associated with the value
+              key: dbname
+       volumes:
+         - name: config-volume
+           configMap:
+             name: ${{ .Release.Name }}-configmap
