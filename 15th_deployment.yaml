@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
  name:  {{ .Release.Name }}
- namespace: spring
 spec:
  selector:
    matchLabels:
@@ -28,10 +27,10 @@ spec:
           valueFrom:
             configMapKeyRef:
               # The ConfigMap containing the value you want to assign to SPECIAL_LEVEL_KEY
-              name: {{ .Release.name }}-configmap
+              name: {{ .Release.Name }}-configmap
               # Specify the key associated with the value
               key: dbname
-       volumes:
+     volumes:
          - name: config-volume
            configMap:
-             name: ${{ .Release.Name }}-configmap
+             name: {{ .Release.Name }}-configmap
