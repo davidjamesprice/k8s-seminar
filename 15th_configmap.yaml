@@ -5,5 +5,3 @@ metadata:
 data:
   dbname:  {{ .Values.dbname }}
   dbtable: {{ .Values.dbtable }}
-  image: {{ .Values.image }}
-  tag: {{ .Values.tag }}
