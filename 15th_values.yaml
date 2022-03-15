@@ -3,3 +3,4 @@ dbtable: "music"
 repo: "yanivomc"
 image: "spring-music"
 tag: "latest"
+port: 8080
